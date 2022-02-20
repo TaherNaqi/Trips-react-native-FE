@@ -3,13 +3,17 @@ import React from "react";
 import tripStore from "../../stores/tripStore";
 import Loading from "../Loading";
 import { baseURL } from "../../stores/api";
-const TripDetail = ({ route }) => {
+import { Button } from "native-base";
+const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Loading />;
   const trip = route.params.trip;
   return (
     <SafeAreaView>
       <Text style={styles.title}>{trip.name}</Text>
       <Image source={{ uri: baseURL + trip.image }} style={styles.tripImage} />
+      <Button onPress={navigation.navigate("UpdateTrip", { trip: trip })}>
+        Update Trip
+      </Button>
     </SafeAreaView>
   );
 };
