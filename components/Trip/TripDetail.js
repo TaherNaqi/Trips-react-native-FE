@@ -11,7 +11,7 @@ const TripDetail = ({ route, navigation }) => {
     <SafeAreaView>
       <Text style={styles.title}>{trip.name}</Text>
       <Image source={{ uri: baseURL + trip.image }} style={styles.tripImage} />
-      <Button onPress={navigation.navigate("UpdateTrip", { trip: trip })}>
+      <Button onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}>
         Update Trip
       </Button>
     </SafeAreaView>

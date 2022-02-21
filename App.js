@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./components/Navigation/StackNavigator";
 import { NativeBaseProvider } from "native-base";
