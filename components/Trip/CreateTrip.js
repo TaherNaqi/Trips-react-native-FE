@@ -7,12 +7,37 @@ import {
   FormControl,
   Heading,
   Input,
+  Image,
   useToast,
   VStack,
 } from "native-base";
 import tripStore from "../../stores/tripStore";
+import * as ImagePicker from "expo-image-picker";
 const CreateTrip = () => {
-  const [trip, setTrip] = useState({ name: "", description: "" });
+  const [image, setImage] = useState(null);
+  const [trip, setTrip] = useState({
+    name: "",
+    description: "",
+    image: null,
+  });
+  console.log(trip);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      setTrip({ ...trip, image: result });
+    }
+  };
   const handleTripName = (value) => {
     setTrip({ ...trip, name: value });
     console.log(trip);
@@ -47,6 +72,13 @@ const CreateTrip = () => {
             <FormControl.Label>Trip Description</FormControl.Label>
             <Input onChangeText={handleTripDescription} />
           </FormControl>
+          <Button onPress={pickImage}>Pick an image from camera roll</Button>
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
           <Button mt="2" colorScheme="indigo" onPress={handleCreate}>
             Create
           </Button>

@@ -10,18 +10,25 @@ import {
   useToast,
   VStack,
 } from "native-base";
+import { observer } from "mobx-react";
 import tripStore from "../../stores/tripStore";
-const UpdateTrip = ({ trip }) => {
-  const [updatedTrip, setUpdatedTrip] = useState({ name: "", description: "" });
-  console.log(trip);
+const UpdateTrip = ({ route, navigation }) => {
+  const { trip } = route.params;
+  const [updatedTrip, setUpdatedTrip] = useState({
+    name: trip.name,
+    description: trip.description,
+    _id: trip._id,
+  });
+  const toast = useToast();
   const handleTripName = (value) => {
-    setUpdatedTrip({ ...trip, name: value });
+    setUpdatedTrip({ ...updatedTrip, name: value });
   };
   const handleTripDescription = (value) => {
-    setUpdatedTrip({ ...trip, description: value });
+    setUpdatedTrip({ ...updatedTrip, description: value });
   };
   const handleUpdate = () => {
-    tripStore.updateTrip(trip._id, updatedTrip);
+    tripStore.updateTrip(updatedTrip, toast);
+    navigation.navigate("Trips");
   };
   return (
     <Center w="100%">
@@ -40,13 +47,21 @@ const UpdateTrip = ({ trip }) => {
         <VStack space={3} mt="5">
           <FormControl>
             <FormControl.Label>Trip Name</FormControl.Label>
-            <Input onChangeText={handleTripName} />
+            <Input value={updatedTrip.name} onChangeText={handleTripName} />
           </FormControl>
           <FormControl>
             <FormControl.Label>Trip Description</FormControl.Label>
-            <Input onChangeText={handleTripDescription} />
+            <Input
+              value={updatedTrip.description}
+              onChangeText={handleTripDescription}
+            />
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={handleUpdate}>
+          <Button
+            mt="2"
+            colorScheme="indigo"
+            onPress={handleUpdate}
+            style={styles.updateButton}
+          >
             Update
           </Button>
         </VStack>
@@ -55,6 +70,8 @@ const UpdateTrip = ({ trip }) => {
   );
 };
 
-export default UpdateTrip;
+export default observer(UpdateTrip);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  updateButton: { backgroundColor: "#1572A1" },
+});

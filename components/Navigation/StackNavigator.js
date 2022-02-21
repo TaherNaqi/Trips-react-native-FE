@@ -4,21 +4,23 @@ import TripDetail from "../Trip/TripDetail";
 import TripList from "../Trip/TripList";
 import CreateTrip from "../Trip/CreateTrip";
 import UpdateTrip from "../Trip/UpdateTrip";
+import Home from "../Home";
 const TabNavigator = ({ navigation, route }) => {
   const { Navigator, Screen } = createStackNavigator();
   return (
     <Navigator
-      initialRouteName="Trips"
+      initialRouteName="CreateTrip"
       screenOptions={{
         headerTintColor: "white",
         headerStyle: {
-          backgroundColor: "#1572A1",
+          backgroundColor: "#9AD0EC",
         },
         headerTitleStyle: {
           fontWeight: "bold",
         },
       }}
     >
+      <Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Screen name="Trips" component={TripList} />
       <Screen
         name="TripDetail"

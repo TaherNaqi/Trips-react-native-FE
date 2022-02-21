@@ -1,24 +1,44 @@
-import { Image, SafeAreaView, StyleSheet, Text } from "react-native";
+import { Image, SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 import tripStore from "../../stores/tripStore";
 import Loading from "../Loading";
 import { baseURL } from "../../stores/api";
-import { Button } from "native-base";
+import { Button, HStack, useToast } from "native-base";
+import { observer } from "mobx-react";
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Loading />;
   const trip = route.params.trip;
+  const toast = useToast();
   return (
     <SafeAreaView>
-      <Text style={styles.title}>{trip.name}</Text>
-      <Image source={{ uri: baseURL + trip.image }} style={styles.tripImage} />
-      <Button onPress={navigation.navigate("UpdateTrip", { trip: trip })}>
-        Update Trip
-      </Button>
+      <Image
+        source={{
+          uri: trip.image
+            ? baseURL + trip.image
+            : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
+        }}
+        style={styles.tripImage}
+        alt={trip.name}
+      />
+      <HStack space={2} style={styles.buttonDisplay}>
+        <Button
+          style={styles.buttonStyle}
+          onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}
+        >
+          Update Trip
+        </Button>
+        <Button
+          style={styles.buttonDel}
+          onPress={() => tripStore.deleteTrip(trip._id, navigation, toast)}
+        >
+          Delete Trip
+        </Button>
+      </HStack>
     </SafeAreaView>
   );
 };
 
-export default TripDetail;
+export default observer(TripDetail);
 
 const styles = StyleSheet.create({
   title: {
@@ -26,13 +46,25 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   tripImage: {
-    height: 250,
-    width: "75%",
+    height: 200,
+    width: "100%",
     alignSelf: "center",
-    marginTop: 15,
-    marginBottom: 15,
-    borderWidth: 4,
-    borderColor: "orange",
+    marginTop: 10,
+    borderColor: "#1572A1",
     borderRadius: 25,
+    marginBottom: 10,
+  },
+  buttonDisplay: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonStyle: {
+    width: "25%",
+    backgroundColor: "#1572A1",
+  },
+  buttonDel: {
+    width: "25%",
+    backgroundColor: "red",
   },
 });
