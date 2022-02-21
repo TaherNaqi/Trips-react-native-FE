@@ -25,13 +25,7 @@ class TripStore {
   createTrip = async (trip) => {
     try {
       const formData = new FormData();
-      formData.append("trip[name]", trip.name);
-      formData.append("trip[description]", trip.description);
-      formData.append("image", {
-        uri: trip.image.uri,
-        name: trip.name,
-        type: trip.image.type,
-      });
+      for (const key in trip) formData.append(key, trip[key]);
       console.log(formData);
       const res = await api.post("/trips", formData);
       this.trips.push(res.data);

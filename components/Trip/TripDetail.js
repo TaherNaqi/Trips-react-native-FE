@@ -3,7 +3,7 @@ import React from "react";
 import tripStore from "../../stores/tripStore";
 import Loading from "../Loading";
 import { baseURL } from "../../stores/api";
-import { Button, HStack, useToast } from "native-base";
+import { Button, HStack, Text, useToast } from "native-base";
 import { observer } from "mobx-react";
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Loading />;
@@ -20,6 +20,7 @@ const TripDetail = ({ route, navigation }) => {
         style={styles.tripImage}
         alt={trip.name}
       />
+      {trip.description && <Text>Description: {trip.description}</Text>}
       <HStack space={2} style={styles.buttonDisplay}>
         <Button
           style={styles.buttonStyle}
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   tripImage: {
-    height: 200,
+    height: 300,
     width: "100%",
     alignSelf: "center",
     marginTop: 10,

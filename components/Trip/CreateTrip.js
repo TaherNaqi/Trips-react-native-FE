@@ -73,15 +73,15 @@ const CreateTrip = () => {
             <Input onChangeText={handleTripDescription} />
           </FormControl>
           <Button onPress={pickImage}>Pick an image from camera roll</Button>
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
           <Button mt="2" colorScheme="indigo" onPress={handleCreate}>
             Create
           </Button>
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 100, height: 100, alignSelf: "center" }}
+            />
+          )}
         </VStack>
       </Box>
     </Center>

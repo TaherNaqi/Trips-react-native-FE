@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import StackNavigator from "./components/Navigation/StackNavigator";
 import { NativeBaseProvider } from "native-base";
+import TabNavigator from "./components/Navigation/StackNavigator";
 export default function App() {
   return (
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <StackNavigator />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }
 

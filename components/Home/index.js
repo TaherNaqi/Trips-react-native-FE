@@ -10,12 +10,15 @@ import React from "react";
 const Home = ({ navigation }) => {
   return (
     <ImageBackground
-      onPress={() => navigation.navigate("Trips")}
       source={{
         uri: "https://wallpaperbat.com/img/340673-follow-me-for-more-pinterestloredanag-instagramloredana.png",
       }}
       style={styles.backGround}
     >
+      <Pressable
+        onPress={() => navigation.navigate("Trips")}
+        style={styles.backGroundPress}
+      ></Pressable>
       {/* <Text style={styles.homeTitle}>Explore new worlds</Text> */}
     </ImageBackground>
   );
@@ -31,5 +34,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  backGroundPress: { width: "100%", height: "100%" },
   homeTitle: { fontSize: 40, color: "#1572A1", fontWeight: "bold" },
 });

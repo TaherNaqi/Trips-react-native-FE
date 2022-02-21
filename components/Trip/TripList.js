@@ -5,8 +5,10 @@ import tripStore from "../../stores/tripStore";
 import TripItem from "./TripItem";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "native-base";
+import Loading from "../Loading";
 
 const TripList = ({ navigation }) => {
+  if (tripStore.trips === []) return <Loading />;
   const trips = tripStore.trips.map((trip) => (
     <TripItem key={trip._id} trip={trip} navigation={navigation} />
   ));
