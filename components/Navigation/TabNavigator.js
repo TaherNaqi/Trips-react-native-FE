@@ -6,6 +6,7 @@ import IconAdd from "react-native-vector-icons/MaterialIcons";
 import StackNavigator from "./StackNavigator";
 import CreateTrip from "../Trip/CreateTrip";
 import { observer } from "mobx-react";
+
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
   return (
@@ -17,7 +18,7 @@ const TabNavigator = () => {
         name="Trips"
         component={StackNavigator}
         options={{
-          tabBarLabel: "Trips",
+          tabBarLabel: "Home",
           headerTitle: "Trips",
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
@@ -28,6 +29,7 @@ const TabNavigator = () => {
         name="createTrip"
         component={CreateTrip}
         options={{
+          tabBarLabel: "Create a trip",
           tabBarIcon: ({ color, size }) => (
             <IconAdd name="add" color={color} size={size} />
           ),

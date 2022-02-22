@@ -1,27 +1,33 @@
 import React from "react";
+import { VStack, Box, Divider } from "native-base";
 import { StyleSheet, Text } from "react-native";
 import { observer } from "mobx-react";
 import { Image } from "native-base";
 import { baseURL } from "../../stores/api";
 const TripItem = ({ trip, navigation }) => {
   return (
-    <>
-      <Text
-        style={styles.title}
-        onPress={() => navigation.navigate("TripDetail", { trip: trip })}
-      >
-        {trip.name}
-      </Text>
-      <Image
-        source={{
-          uri: trip.image
-            ? baseURL + trip.image
-            : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
-        }}
-        style={styles.tripImage}
-        alt={trip.name}
-      />
-    </>
+    // <>
+    <Box border="1" borderRadius="md">
+      <VStack space="4" divider={<Divider />}>
+        <Box px="1" pt="4">
+          <Text
+            style={styles.title}
+            onPress={() => navigation.navigate("TripDetail", { trip: trip })}
+          >
+            {trip.name}
+          </Text>
+          <Image
+            source={{
+              uri: trip.image
+                ? baseURL + trip.image
+                : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
+            }}
+            style={styles.tripImage}
+            alt={trip.name}
+          />
+        </Box>
+      </VStack>
+    </Box>
   );
 };
 

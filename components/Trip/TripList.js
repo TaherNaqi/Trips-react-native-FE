@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import { StyleSheet, Text, View } from "react-native";
 import tripStore from "../../stores/tripStore";
 import TripItem from "./TripItem";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "native-base";
 import Loading from "../Loading";
 

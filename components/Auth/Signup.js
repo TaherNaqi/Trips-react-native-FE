@@ -2,6 +2,7 @@
 import authStore from "../../stores/authStore";
 //import libraries:
 import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import {
   Box,
@@ -109,7 +110,7 @@ const Signup = ({ navigation }) => {
               />
             )}
           </FormControl> */}
-          <Button mt="2" colorScheme="indigo" onPress={handleSubmit}>
+          <Button mt="2" style={styles.btn} onPress={handleSubmit}>
             Sign up
           </Button>
         </VStack>
@@ -119,3 +120,6 @@ const Signup = ({ navigation }) => {
 };
 
 export default observer(Signup);
+const styles = StyleSheet.create({
+  btn: { backgroundColor: "#1572A1" },
+});

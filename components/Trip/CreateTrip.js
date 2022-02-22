@@ -13,49 +13,46 @@ import {
 } from "native-base";
 import tripStore from "../../stores/tripStore";
 import * as ImagePicker from "expo-image-picker";
-const CreateTrip = () => {
-  const [image, setImage] = useState(null);
+const CreateTrip = ({ navigation }) => {
+  // const [image, setImage] = useState(null);
   const [trip, setTrip] = useState({
     name: "",
     description: "",
-    image: null,
+    // image: null,
   });
-  console.log(trip);
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  // const pickImage = async () => {
+  // No permissions request is necessary for launching the image library
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
 
-    console.log(result);
+  //   console.log(result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
 
-      // ImagePicker saves the taken photo to disk and returns a local URI to it
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
+  //     // ImagePicker saves the taken photo to disk and returns a local URI to it
+  //     let localUri = result.uri;
+  //     let filename = localUri.split("/").pop();
 
-      // Infer the type of the image
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
-      setTrip({ ...trip, image: { uri: localUri, name: filename, type } });
-    }
-  };
+  //     // Infer the type of the image
+  //     let match = /\.(\w+)$/.exec(filename);
+  //     let type = match ? `image/${match[1]}` : `image`;
+  //     setTrip({ ...trip, image: { uri: localUri, name: filename, type } });
+  //   }
+  // };
   const handleTripName = (value) => {
     setTrip({ ...trip, name: value });
-    console.log(trip);
   };
   const handleTripDescription = (value) => {
     setTrip({ ...trip, description: value });
-    console.log(trip);
   };
   const handleCreate = () => {
-    tripStore.createTrip(trip);
+    tripStore.createTrip(trip, navigation);
   };
   return (
     <Center w="100%">
@@ -80,16 +77,16 @@ const CreateTrip = () => {
             <FormControl.Label>Trip Description</FormControl.Label>
             <Input onChangeText={handleTripDescription} />
           </FormControl>
-          <Button onPress={pickImage}>Pick an image from camera roll</Button>
-          <Button mt="2" colorScheme="indigo" onPress={handleCreate}>
+          {/* <Button onPress={pickImage}>Pick an image from camera roll</Button> */}
+          <Button mt="2" style={styles.btn} onPress={handleCreate}>
             Create
           </Button>
-          {image && (
+          {/* {image && (
             <Image
               source={{ uri: image }}
               style={{ width: 100, height: 100, alignSelf: "center" }}
             />
-          )}
+          )} */}
         </VStack>
       </Box>
     </Center>
@@ -98,4 +95,6 @@ const CreateTrip = () => {
 
 export default CreateTrip;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: { backgroundColor: "#1572A1" },
+});

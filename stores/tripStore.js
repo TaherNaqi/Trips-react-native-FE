@@ -1,5 +1,6 @@
 import { makeAutoObservable, configure } from "mobx";
 import api from "./api";
+import authStore from "./authStore";
 import profileStore from "./profileStore";
 configure({
   enforceActions: "never",
@@ -22,15 +23,14 @@ class TripStore {
       );
     }
   };
-  createTrip = async (trip) => {
-    console.log(
-      "🚀 ~ file: tripStore.js ~ line 26 ~ TripStore ~ createTrip= ~ trip",
-      trip
-    );
+  createTrip = async (trip, navigation) => {
     try {
-      const formData = new FormData();
-      for (const key in trip) formData.append(key, trip[key]);
-      // const profile = profileStore.profiles.find((profile)=>profile.owner._id===user._id)
+      // const formData = new FormData();
+      // for (const key in trip) formData.append(key, trip[key]);
+      const profile = profileStore.profiles.find(
+        (profile) => profile.owner._id === authStore.user._id
+      );
+      const res = await api.post(`/profiles/${profile._id}`, trip);
       // const res = await axios.post(
       //   `/${profile._id}`,
       //   formData
@@ -39,6 +39,7 @@ class TripStore {
       // }
       // );
       this.trips.push(res.data);
+      navigation.navigate("Trips");
     } catch (error) {
       console.log(
         "🚀 ~ file: tripStore.js ~ line 27 ~ TripStore ~ createTrip=async ~ error",
@@ -67,7 +68,7 @@ class TripStore {
       let tempTrips = this.trips.filter((trip) => trip._id !== tripId);
       this.trips = tempTrips;
       navigation.navigate("Trips");
-      toast.show({ title: `Your trip has been updated`, status: "success" });
+      toast.show({ title: `Your trip has been deleted`, status: "danger" });
     } catch (error) {
       console.log(
         "🚀 ~ file: tripStore.js ~ line 55 ~ TripStore ~ deleteTrip ~ error",
