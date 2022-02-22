@@ -26,7 +26,12 @@ const Signup = ({ navigation }) => {
   });
   //handle submit:
   const handleSubmit = () => {
-    authStore.signUp(user, navigation, toast);
+    if (user.username === 0)
+      toast.show({
+        title: "Wrong password",
+        status: "danger",
+      });
+    else authStore.signUp(user, navigation, toast);
   };
 
   //image picker:
