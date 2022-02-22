@@ -57,12 +57,14 @@ class AuthStore {
     }
   };
 
-  //user logout:
-  logout = () => {
+  //user logout: added async and await
+  logout = async ({ navigation }) => {
     try {
       this.user = null;
       delete api.defaults.headers.common.Authorization;
-      AsyncStorage.removeItem("myToken");
+      await AsyncStorage.removeItem("myToken");
+      // await AsyncStorage.clear();
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
     }

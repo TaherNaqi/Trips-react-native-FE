@@ -6,16 +6,17 @@ import TripDetail from "../Trip/TripDetail";
 import TripList from "../Trip/TripList";
 import CreateTrip from "../Trip/CreateTrip";
 import UpdateTrip from "../Trip/UpdateTrip";
-
 import Home from "../Home";
 import Signin from "../Auth/Signin";
 import Signup from "../Auth/Signup";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import authStore from "../../stores/authStore";
 
 const TabNavigator = ({ navigation, route }) => {
   const { Navigator, Screen } = createStackNavigator();
   return (
     <Navigator
-      initialRouteName="signin"
+      initialRouteName="Home"
       screenOptions={{
         headerTintColor: "white",
         headerStyle: {
@@ -24,6 +25,14 @@ const TabNavigator = ({ navigation, route }) => {
         headerTitleStyle: {
           fontWeight: "bold",
         },
+
+        headerRight: () => (
+          <Icon
+            size={25}
+            name="logout"
+            onPress={({ navigation }) => authStore.logout(navigation)}
+          />
+        ),
       }}
     >
       <Screen name="Home" component={Home} options={{ headerShown: false }} />
