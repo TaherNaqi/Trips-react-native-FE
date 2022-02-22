@@ -35,7 +35,15 @@ const CreateTrip = () => {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      setTrip({ ...trip, image: result });
+
+      // ImagePicker saves the taken photo to disk and returns a local URI to it
+      let localUri = result.uri;
+      let filename = localUri.split("/").pop();
+
+      // Infer the type of the image
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+      setTrip({ ...trip, image: { uri: localUri, name: filename, type } });
     }
   };
   const handleTripName = (value) => {

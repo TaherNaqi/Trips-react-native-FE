@@ -12,11 +12,7 @@ const TripList = ({ navigation }) => {
   const trips = tripStore.trips.map((trip) => (
     <TripItem key={trip._id} trip={trip} navigation={navigation} />
   ));
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>{trips}</ScrollView>
-    </SafeAreaView>
-  );
+  return <ScrollView>{trips}</ScrollView>;
 };
 
 export default observer(TripList);

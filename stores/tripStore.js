@@ -1,6 +1,6 @@
 import { makeAutoObservable, configure } from "mobx";
-import { PushNotificationIOS } from "react-native";
 import api from "./api";
+import profileStore from "./profileStore";
 configure({
   enforceActions: "never",
 });
@@ -23,11 +23,21 @@ class TripStore {
     }
   };
   createTrip = async (trip) => {
+    console.log(
+      "🚀 ~ file: tripStore.js ~ line 26 ~ TripStore ~ createTrip= ~ trip",
+      trip
+    );
     try {
       const formData = new FormData();
       for (const key in trip) formData.append(key, trip[key]);
-      console.log(formData);
-      const res = await api.post("/trips", formData);
+      // const profile = profileStore.profiles.find((profile)=>profile.owner._id===user._id)
+      // const res = await axios.post(
+      //   `/${profile._id}`,
+      //   formData
+      // {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // }
+      // );
       this.trips.push(res.data);
     } catch (error) {
       console.log(
