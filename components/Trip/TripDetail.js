@@ -11,30 +11,11 @@ const TripDetail = ({ route, navigation }) => {
   const toast = useToast();
   return (
     <SafeAreaView>
-      <Image
-        source={{
-          uri: trip.image
-            ? baseURL + trip.image
-            : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
-        }}
-        style={styles.tripImage}
-        alt={trip.name}
-      />
-      {trip.description && <Text>Description: {trip.description}</Text>}
-      <HStack space={2} style={styles.buttonDisplay}>
-        <Button
-          style={styles.buttonStyle}
-          onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}
-        >
-          Update Trip
-        </Button>
-        <Button
-          style={styles.buttonDel}
-          onPress={() => tripStore.deleteTrip(trip._id, navigation, toast)}
-        >
-          Delete Trip
-        </Button>
-      </HStack>
+      <Text style={styles.title}>{trip.name}</Text>
+      <Image source={{ uri: baseURL + trip.image }} style={styles.tripImage} />
+      <Button onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}>
+        Update Trip
+      </Button>
     </SafeAreaView>
   );
 };
