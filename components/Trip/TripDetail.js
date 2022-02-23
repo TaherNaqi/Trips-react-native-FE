@@ -31,7 +31,7 @@ const TripDetail = ({ route, navigation }) => {
         style={styles.tripImage}
       />
 
-      <HStack>
+      <HStack style={styles.row}>
         <Pressable
           onPress={() => navigation.navigate("Profile", { user: trip.owner })}
         >
@@ -76,13 +76,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: 10,
   },
-  buttonDisplay: {
-    display: "flex",
-    flexDirection: "row",
-    position: "absolute",
-    marginLeft: "85%",
-    marginTop: 5,
-  },
+  row: { display: "flex", justifyContent: "space-between" },
+  buttonDisplay: { marginRight: 5, flexDirection: "row", marginTop: 5 },
   buttonStyle: {
     marginRight: 10,
   },
