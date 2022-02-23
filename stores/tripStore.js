@@ -27,11 +27,9 @@ class TripStore {
     try {
       // const formData = new FormData();
       // for (const key in trip) formData.append(key, trip[key]);
-      const profile = profileStore.profiles.find(
-        (profile) => profile.owner === authStore.user._id
-      );
-      console.log(profileStore.profiles);
-      const res = await api.post(`/profiles/${profile.owner}`, trip);
+      // const profile = profileStore.profiles.find(
+      //   (profile) => profile.owner._id === authStore.user._id
+      // );
       // const res = await axios.post(
       //   `/${profile._id}`,
       //   formData
@@ -39,6 +37,7 @@ class TripStore {
       //   headers: { "Content-Type": "multipart/form-data" },
       // }
       // );
+      const res = await api.post(`/profiles/`, trip);
       this.trips.push(res.data);
       navigation.navigate("Trips");
     } catch (error) {

@@ -7,7 +7,7 @@ import { ScrollView } from "native-base";
 import Loading from "../Loading";
 
 const TripList = ({ navigation }) => {
-  if (tripStore.trips === []) return <Loading />;
+  if (tripStore.loading) return <Loading />;
   const trips = tripStore.trips.map((trip) => (
     <TripItem key={trip._id} trip={trip} navigation={navigation} />
   ));

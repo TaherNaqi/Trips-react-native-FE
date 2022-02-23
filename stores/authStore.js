@@ -4,7 +4,7 @@ import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
-
+import { useNavigation } from "@react-navigation/native";
 class AuthStore {
   user = null;
 
@@ -52,13 +52,12 @@ class AuthStore {
   };
 
   //user logout: added async and await
-  logout = async ({ navigation }) => {
+  logout = async () => {
     try {
       this.user = null;
       delete api.defaults.headers.common.Authorization;
       await AsyncStorage.removeItem("myToken");
       // await AsyncStorage.clear();
-      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
     }
@@ -74,10 +73,14 @@ class AuthStore {
         this.setUser(token);
       } else {
         alert("Logged out");
-        this.logout();
+        this.user = null;
+        delete api.defaults.headers.common.Authorization;
+        await AsyncStorage.removeItem("myToken");
       }
     } else {
-      this.logout();
+      this.user = null;
+      delete api.defaults.headers.common.Authorization;
+      await AsyncStorage.removeItem("myToken");
     }
   };
 }

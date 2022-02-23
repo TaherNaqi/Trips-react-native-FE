@@ -16,6 +16,10 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Profile from "../Profile";
 import UpdateProfile from "../Profile/UpdateProfile";
 const TabNavigator = ({ navigation, route }) => {
+  const logOut = () => {
+    authStore.logout();
+    navigation.navigate("Home");
+  };
   const { Navigator, Screen } = createStackNavigator();
   return (
     <Navigator
@@ -30,13 +34,7 @@ const TabNavigator = ({ navigation, route }) => {
         },
 
         headerRight: () =>
-          authStore.user && (
-            <Icon
-              size={25}
-              name="logout"
-              onPress={({ navigation }) => authStore.logout(navigation)}
-            />
-          ),
+          authStore.user && <Icon size={25} name="logout" onPress={logOut} />,
       }}
     >
       <Screen
@@ -47,24 +45,13 @@ const TabNavigator = ({ navigation, route }) => {
         }}
       />
 
-      <Screen
-        name="Trips"
-        component={TripList}
-        options={{
-          headerRight: () => (
-            <IconLogOut
-              name="logout"
-              size={30}
-              onPress={() => authStore.logout(navigation)}
-            />
-          ),
-        }}
-      />
+      <Screen name="Trips" component={TripList} options={{}} />
       <Screen
         name="TripDetail"
         component={TripDetail}
         options={({ route, navigation }) => {
           return {
+            headerShown: false,
             headerTitle: route.params.trip.name,
             headerRight: () => (
               <IconLogOut

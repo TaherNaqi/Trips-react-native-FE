@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import profileStore from "../../stores/profileStore";
 import TripItem from "../Trip/TripItem";
+import { ScrollView } from "native-base";
 
 const Profile = ({ route, navigation }) => {
   const user = route.params.user;
@@ -15,10 +16,10 @@ const Profile = ({ route, navigation }) => {
   console.log(trips);
 
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.title}>Welcome to {user.username}'s profile</Text>
       {trips}
-    </View>
+    </ScrollView>
   );
 };
 
