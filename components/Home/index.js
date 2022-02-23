@@ -1,11 +1,6 @@
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageBackground, Pressable, StyleSheet } from "react-native";
 import React from "react";
+import authStore from "../../stores/authStore";
 
 const Home = ({ navigation }) => {
   return (
@@ -16,10 +11,10 @@ const Home = ({ navigation }) => {
       style={styles.backGround}
     >
       <Pressable
-        onPress={() => navigation.navigate("Trips")}
+        onPress={() => navigation.navigate(authStore.user ? "Trips" : "signin")}
         style={styles.backGroundPress}
       ></Pressable>
-      {/* <Text style={styles.homeTitle}>Explore new worlds</Text> */}
+      {/* <Button style={styles.homeButton}>Join us</Button> */}
     </ImageBackground>
   );
 };
@@ -36,4 +31,5 @@ const styles = StyleSheet.create({
   },
   backGroundPress: { width: "100%", height: "100%" },
   homeTitle: { fontSize: 40, color: "#1572A1", fontWeight: "bold" },
+  homeButton: { backgroundColor: "#9AD0EC", marginTop: "130%" },
 });

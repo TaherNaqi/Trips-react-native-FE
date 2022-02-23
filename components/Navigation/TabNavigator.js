@@ -1,18 +1,25 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IconAdd from "react-native-vector-icons/MaterialIcons";
 import StackNavigator from "./StackNavigator";
 import CreateTrip from "../Trip/CreateTrip";
+import { observer } from "mobx-react";
+
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+    >
       <Tab.Screen
-        name="Home"
+        name="Trips"
         component={StackNavigator}
         options={{
-          onPress: () => navigation.navigate("Home"),
-
+          tabBarLabel: "Home",
+          headerTitle: "Trips",
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
@@ -22,10 +29,9 @@ const TabNavigator = () => {
         name="createTrip"
         component={CreateTrip}
         options={{
-          onPress: () => navigation.navigate("Home"),
-
+          tabBarLabel: "Create a trip",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="createTrip" color={color} size={size} />
+            <IconAdd name="add" color={color} size={size} />
           ),
         }}
       />
@@ -33,6 +39,6 @@ const TabNavigator = () => {
   );
 };
 
-export default TabNavigator;
+export default observer(TabNavigator);
 
 const styles = StyleSheet.create({});

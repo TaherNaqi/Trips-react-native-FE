@@ -13,7 +13,6 @@ class AuthStore {
   }
   //set user token:
   setUser = (token) => {
-    console.log("🚀 ~ file: authStore.js ~ line 16 ~ AuthStore ~ token", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     this.user = decode(token);
     AsyncStorage.setItem("myToken", token);
@@ -23,10 +22,6 @@ class AuthStore {
   signIn = async (user, navigation, toast) => {
     try {
       const response = await api.post("/signin", user);
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 26 ~ AuthStore ~ signIn= ~ response",
-        response
-      );
       this.setUser(response.data.token);
       navigation.navigate("Trips");
     } catch (error) {
@@ -40,7 +35,6 @@ class AuthStore {
   //user signup:
   signUp = async (user, navigation, toast) => {
     try {
-      console.log(user);
       const response = await api.post("/signup", user);
       this.setUser(response.data.token);
       // navigation.goBack();

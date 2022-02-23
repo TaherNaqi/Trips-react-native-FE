@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
-import TabNavigator from "./components/Navigation/StackNavigator";
+import TabNavigator from "./components/Navigation/TabNavigator";
 export default function App() {
   return (
     <NativeBaseProvider>

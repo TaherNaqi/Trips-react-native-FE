@@ -2,6 +2,7 @@
 import authStore from "../../stores/authStore";
 //import libraries:
 import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import {
   Box,
   Button,
@@ -67,7 +68,7 @@ const Signin = ({ navigation }) => {
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={handleSubmit}>
+          <Button mt="2" style={styles.btn} onPress={handleSubmit}>
             Sign in
           </Button>
           <HStack mt="6" justifyContent="center">
@@ -97,3 +98,6 @@ const Signin = ({ navigation }) => {
   );
 };
 export default Signin;
+const styles = StyleSheet.create({
+  btn: { backgroundColor: "#1572A1" },
+});

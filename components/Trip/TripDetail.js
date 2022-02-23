@@ -1,10 +1,20 @@
-import { Image, SafeAreaView, StyleSheet } from "react-native";
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import tripStore from "../../stores/tripStore";
 import Loading from "../Loading";
 import { baseURL } from "../../stores/api";
-import { Button, HStack, Text, useToast } from "native-base";
+import IconUpdate from "react-native-vector-icons/Feather";
+import IconDelete from "react-native-vector-icons/AntDesign";
+import { Center, Container, HStack, Icon, useToast } from "native-base";
 import { observer } from "mobx-react";
+import authStore from "../../stores/authStore";
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Loading />;
   const trip = route.params.trip;
@@ -12,10 +22,37 @@ const TripDetail = ({ route, navigation }) => {
   return (
     <SafeAreaView>
       <Text style={styles.title}>{trip.name}</Text>
-      <Image source={{ uri: baseURL + trip.image }} style={styles.tripImage} />
-      <Button onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}>
-        Update Trip
-      </Button>
+      <Image
+        source={{
+          uri: trip.image
+            ? baseURL + trip.image
+            : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
+        }}
+        style={styles.tripImage}
+      />
+
+      <HStack>
+        <Pressable
+          onPress={() => navigation.navigate("Profile", { user: trip.owner })}
+        >
+          <Text style={styles.owner}>Made by {trip.owner.username}</Text>
+        </Pressable>
+        {authStore.user._id === trip.owner._id && (
+          <View style={styles.buttonDisplay}>
+            <IconUpdate
+              name="edit"
+              size={25}
+              style={styles.buttonStyle}
+              onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}
+            />
+            <IconDelete
+              name="delete"
+              size={25}
+              onPress={() => tripStore.deleteTrip(trip._id, navigation, toast)}
+            />
+          </View>
+        )}
+      </HStack>
     </SafeAreaView>
   );
 };
@@ -27,8 +64,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
   },
+  owner: {
+    fontSize: 25,
+  },
   tripImage: {
-    height: 300,
+    height: 250,
     width: "100%",
     alignSelf: "center",
     marginTop: 10,
@@ -38,15 +78,12 @@ const styles = StyleSheet.create({
   },
   buttonDisplay: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "row",
+    position: "absolute",
+    marginLeft: "85%",
+    marginTop: 5,
   },
   buttonStyle: {
-    width: "25%",
-    backgroundColor: "#1572A1",
-  },
-  buttonDel: {
-    width: "25%",
-    backgroundColor: "red",
+    marginRight: 10,
   },
 });
