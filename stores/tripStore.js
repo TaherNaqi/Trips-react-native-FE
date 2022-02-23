@@ -28,9 +28,10 @@ class TripStore {
       // const formData = new FormData();
       // for (const key in trip) formData.append(key, trip[key]);
       const profile = profileStore.profiles.find(
-        (profile) => profile.owner._id === authStore.user._id
+        (profile) => profile.owner === authStore.user._id
       );
-      const res = await api.post(`/profiles/${profile._id}`, trip);
+      console.log(profileStore.profiles);
+      const res = await api.post(`/profiles/${profile.owner}`, trip);
       // const res = await axios.post(
       //   `/${profile._id}`,
       //   formData
