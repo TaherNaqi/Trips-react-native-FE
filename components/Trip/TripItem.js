@@ -25,6 +25,7 @@ const TripItem = ({ trip, navigation }) => {
             style={styles.tripImage}
             alt={trip.name}
           />
+          <Box px="4"></Box>
         </Box>
       </VStack>
     </Box>
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     width: "85%",
     alignSelf: "center",
     marginTop: 10,
+    borderWidth: 1,
     borderColor: "#1572A1",
     borderRadius: 25,
     marginBottom: 25,
