@@ -15,6 +15,7 @@ class TripStore {
     try {
       const res = await api.get("/trips");
       this.trips = res.data;
+      profileStore.getProfiles();
       this.loading = false;
     } catch (error) {
       console.log(
@@ -27,9 +28,9 @@ class TripStore {
     try {
       // const formData = new FormData();
       // for (const key in trip) formData.append(key, trip[key]);
-      // const profile = profileStore.profiles.find(
-      //   (profile) => profile.owner._id === authStore.user._id
-      // );
+      const profile = profileStore.profiles.find(
+        (profile) => profile.owner._id === authStore.user._id
+      );
       // const res = await axios.post(
       //   `/${profile._id}`,
       //   formData
@@ -39,6 +40,7 @@ class TripStore {
       // );
       const res = await api.post(`/profiles/`, trip);
       this.trips.push(res.data);
+      profile.trips.push(res.data);
       navigation.navigate("Trips");
     } catch (error) {
       console.log(

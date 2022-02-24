@@ -24,11 +24,13 @@ const TripDetail = ({ route, navigation }) => {
     <>
       <ImageBackground
         style={styles.background}
-        imageStyle={{ borderRadius: 20, resizeMode: "cover" }}
+        imageStyle={{ resizeMode: "cover" }}
         source={{
           uri: trip.image
-            ? baseURL + trip.image
+            ? trip.image
             : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
+          // ? baseURL + trip.image
+          // : "https://previews.123rf.com/images/gustavofrazao/gustavofrazao1510/gustavofrazao151011340/62250537-road-trips-sign-with-arrow-on-road-background.jpg",
         }}
       >
         {/* <LinearGradient colors={["#4c669f", "#3b5998", "#192f6a"]} /> */}
@@ -79,6 +81,8 @@ const TripDetail = ({ route, navigation }) => {
           )}
         </HStack>
       </ImageBackground>
+      <Text style={styles.description}>Description:</Text>
+      <Text style={styles.descriptionDetail}>{trip.description}</Text>
     </>
   );
 };
@@ -90,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "white",
     fontWeight: "bold",
+    textDecorationLine: "underline",
   },
 
   row: {
@@ -119,4 +124,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "80%",
   },
+  description: { fontSize: 25, marginTop: -112, fontWeight: "bold" },
+  descriptionDetail: { fontSize: 18 },
 });

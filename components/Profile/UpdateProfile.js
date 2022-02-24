@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 //import libraries:
 import {
   Box,
@@ -16,10 +16,14 @@ import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 
 const Updateprofile = ({ route, navigation }) => {
+  if (profileStore.loading) return <Loading />;
   const { profile } = route.params;
   const [updatedProfile, setUpdatedProfile] = useState({
     bio: profile.bio,
     image: profile.image,
+    _id: profile._id,
+    trips: profile.trips,
+    owner: profile.owner,
   });
   const toast = useToast();
   const handleProfilebio = (value) => {
@@ -30,7 +34,7 @@ const Updateprofile = ({ route, navigation }) => {
   };
   const handleUpdate = () => {
     profileStore.updateProfile(updatedProfile, toast);
-    navigation.navigate("Profile");
+    navigation.goBack();
   };
   return (
     <Center w="100%">

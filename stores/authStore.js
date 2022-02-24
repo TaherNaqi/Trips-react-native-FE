@@ -4,7 +4,7 @@ import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
-import { useNavigation } from "@react-navigation/native";
+import profileStore from "./profileStore";
 class AuthStore {
   user = null;
 
@@ -23,6 +23,7 @@ class AuthStore {
     try {
       const response = await api.post("/signin", user);
       this.setUser(response.data.token);
+      profileStore.getProfiles();
       navigation.navigate("Trips");
     } catch (error) {
       toast.show({
@@ -38,6 +39,7 @@ class AuthStore {
       const response = await api.post("/signup", user);
       this.setUser(response.data.token);
       // navigation.goBack();
+      profileStore.getProfiles();
       navigation.navigate("Trips"); //<=- ask team that where we will navigate after signup
     } catch (error) {
       console.log(

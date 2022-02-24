@@ -21,6 +21,22 @@ class ProfileStore {
       );
     }
   };
+  updateProfile = async (updatedProfile, toast) => {
+    try {
+      const res = await api.put("/profiles", updatedProfile);
+      let tempProfiles = this.profiles.map((profile) =>
+        profile._id === updatedProfile._id ? res.data : profile
+      );
+      this.profiles = tempProfiles;
+      this.loading = true;
+      this.getProfiles();
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: profileStore.js ~ line 28 ~ ProfileStore ~ updateProfile= ~ error",
+        error
+      );
+    }
+  };
 }
 const profileStore = new ProfileStore();
 profileStore.getProfiles();

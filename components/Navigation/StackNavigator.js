@@ -25,16 +25,23 @@ const TabNavigator = ({ navigation, route }) => {
     <Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerTintColor: "white",
+        headerTintColor: "black",
         headerStyle: {
-          backgroundColor: "#9AD0EC",
+          backgroundColor: "#1572A1",
         },
         headerTitleStyle: {
           fontWeight: "bold",
         },
 
         headerRight: () =>
-          authStore.user && <Icon size={25} name="logout" onPress={logOut} />,
+          authStore.user && (
+            <Icon
+              style={{ margin: 12 }}
+              size={25}
+              name="logout"
+              onPress={logOut}
+            />
+          ),
       }}
     >
       <Screen
@@ -45,7 +52,7 @@ const TabNavigator = ({ navigation, route }) => {
         }}
       />
 
-      <Screen name="Trips" component={TripList} options={{}} />
+      <Screen name="Trips" component={TripList} />
       <Screen
         name="TripDetail"
         component={TripDetail}

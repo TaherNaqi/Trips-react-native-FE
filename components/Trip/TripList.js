@@ -11,9 +11,11 @@ const TripList = ({ navigation }) => {
   const trips = tripStore.trips.map((trip) => (
     <TripItem key={trip._id} trip={trip} navigation={navigation} />
   ));
-  return <ScrollView>{trips}</ScrollView>;
+  return <ScrollView style={styles.list}>{trips}</ScrollView>;
 };
 
 export default observer(TripList);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  list: {},
+});
